@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken'); // Import JWT package
-
+const cors = require('cors');
+app.use(cors());
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -74,9 +75,6 @@ const userRoutes = require("./routes/userRoutes"); // Replace with the actual pa
 app.use("/api", dishes);
 app.use("/api/user", userRoutes);
 // Add your routes here, which will now require JWT authentication
-
-// The predefined code is retained
-app.use(cors());
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

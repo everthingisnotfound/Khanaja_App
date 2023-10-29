@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken'); // Import JWT package
 const cors = require('cors');
-app.use(cors());
+
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -27,6 +27,9 @@ app.use(express.json());
 
 // JWT Secret Key (Replace with your own secret key)
 const jwtSecret = 'your_secret_key';
+
+// Enable CORS
+app.use(cors());
 
 // Register route
 app.post('/api/login', async (req, res) => {

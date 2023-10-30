@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Navbar from "./components/navbar/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import About from "./pages/about/About";
 import Contact from "./pages/contact/Contact";
-// import Home from "./pages/home/Home";
+import Home from "./pages/home/Home";
 import Cart from "./pages/cart/Cart";
-// import Footer from "./components/footer/Footer";
+import Footer from "./components/footer/Footer";
 import Shop from "./pages/shop/Shop";
-// import Login from "./pages/login/Login";
+import Login from "./pages/login/Login";
 
 export default function App() {
   return (

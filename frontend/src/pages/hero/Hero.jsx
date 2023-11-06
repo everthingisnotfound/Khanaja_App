@@ -1,38 +1,44 @@
-import "./Hero.css";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Hero.css';
 
 const Hero = () => {
+  const user = localStorage.getItem('user');
   const navigate = useNavigate();
-  const user = localStorage.getItem("user");
 
-  const logoutUser = () => {
-    localStorage.removeItem("user");
-    location.reload();
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/');
+  };
+
+  const handleUserLogin = () => {
+    navigate('/Userlogin');
+  };
+
+  const handleDriverLogin = () => {
+    navigate('/Driverlogin');
   };
 
   return (
     <div className="hero-section">
       <div className="hero-title">
-        <h1>
-          Haldiram's Delicious Food, <br /> delivered right at your doorstep!
-        </h1>
-        <p>
-          Experience the rich and delectable world of Haldiram's cuisine at your
-          fingertips with the Haldiram Food Delivery App! Indulge in the
-          authentic flavors of India's favorite snacks, sweets, and savories,
-          all conveniently delivered to your doorstep.
-        </p>
+        <h1>Order Tension free</h1>
+        <p>Your trusted order-delivering service.</p>
         <div>
-          <button
-            className="order-now-btn"
-            onClick={() => navigate(user ? "/foods" : "/login")}
-          >
-            {user ? "Start Ordering" : "Login now"}
-          </button>
           {user && (
-            <button style={{marginLeft: '10px'}} className="order-now-btn" onClick={() => logoutUser()}>
-              {"Logout"}
+            <button className="order-now-btn" onClick={handleLogout}>
+              Logout
             </button>
+          )}
+          {!user && (
+            <>
+              <button className="order-now-btn" onClick={handleUserLogin}>
+                User Login
+              </button>
+              <button className="order-now-btn" onClick={handleDriverLogin}>
+                Driver Login
+              </button>
+            </>
           )}
         </div>
       </div>

@@ -6,7 +6,10 @@ import Home from "./pages/home/Home";
 import Cart from "./pages/cart/Cart";
 import Footer from "./components/footer/Footer";
 import Shop from "./pages/shop/Shop";
-import Login from "./pages/login/Login";
+import User_Login from "./pages/login/User_Login";
+import Driver_Login from "./pages/login/Driver_Login";
+import TestimonialSlider from "./pages/testimonials/Component_Testimonials";
+import Location from "./pages/location/Location";
 
 export default function App() {
   return (
@@ -19,7 +22,10 @@ export default function App() {
         <Route path="about" element={<About />} />
         <Route path="cart" element={<Cart />} />
         <Route path="contact" element={<Contact />} />
-        <Route path="login" element={<Login />} />
+        <Route path="Userlogin" element={<User_Login />} />
+        <Route path="Driverlogin" element={<Driver_Login />} />
+        <Route path="testimonials" element={<TestimonialSlider />} />
+        <Route path="locations" element={<Location />} />
       </Routes>
       <Footer />
     </Router>

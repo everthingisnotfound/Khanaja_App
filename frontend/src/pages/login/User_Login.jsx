@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-import "./Login.css";
+import "./User_Login.css";
 
 const initialState = {
   name: "",
@@ -12,7 +12,7 @@ const initialState = {
   cnf_password: "",
 };
 
-const Login = () => {
+const User_Login = () => {
   const [isMember, setIsMember] = useState(false);
   const [values, setValues] = useState(initialState);
   const [error, setError] = useState("");
@@ -31,7 +31,7 @@ const Login = () => {
   const registerUser = async (currentUser) => {
     try {
       const response = await axios.post(
-        `http://localhost:3001/api/user/register`,
+        `http://localhost:3001/api/customer-user/register`,
         currentUser
       );
       const { user, token } = response.data;
@@ -79,90 +79,92 @@ const Login = () => {
     <div className="contact-form">
       <h2>Login/Signup</h2>
       <div className="container">
-        <form onSubmit={onSubmit}>
-          {error && (
-            <div>
-              <p>{error}</p>
-            </div>
-          )}
-          {!isMember && (
+        <div className="form-box">
+          <form onSubmit={onSubmit}>
+            {error && (
+              <div>
+                <p>{error}</p>
+              </div>
+            )}
+            {!isMember && (
+              <div>
+                <TextField
+                  id="standard-basic"
+                  label="Name"
+                  variant="standard"
+                  required
+                  name="name"
+                  value={values.name}
+                  onChange={onHandleChange}
+                />
+              </div>
+            )}
             <div>
               <TextField
                 id="standard-basic"
-                label="Name"
+                label="Email"
+                type="email"
                 variant="standard"
+                name="email"
                 required
-                name="name"
-                value={values.name}
+                value={values.email}
                 onChange={onHandleChange}
               />
             </div>
-          )}
-          <div>
-            <TextField
-              id="standard-basic"
-              label="Email"
-              type="email"
-              variant="standard"
-              name="email"
-              required
-              value={values.email}
-              onChange={onHandleChange}
-            />
-          </div>
-          <div>
-            <TextField
-              id="standard-basic"
-              label="Password"
-              type="password"
-              name="password"
-              variant="standard"
-              required
-              onChange={onHandleChange}
-            />
-          </div>
-          {!isMember && (
             <div>
               <TextField
                 id="standard-basic"
-                label="Confirm Password"
-                name="cnf_password"
+                label="Password"
                 type="password"
+                name="password"
                 variant="standard"
                 required
                 onChange={onHandleChange}
               />
             </div>
-          )}
-          <Button variant="contained" type="submit">
-            {isMember ? "Login" : "Register"}
-          </Button>
-          {isMember && (
-            <p className="login-register-text">
-              Don't have an account? Please
-              <span
-                className="login-register-link"
-                onClick={() => setIsMember(!isMember)}
-              >
-                Register
-              </span>
-            </p>
-          )}
-          {!isMember && (
-            <p className="login-register-text">
-              Already have an account? Please
-              <span
-                className="login-register-link"
-                onClick={() => setIsMember(!isMember)}
-              >
-                Login
-              </span>
-            </p>
-          )}
-        </form>
+            {!isMember && (
+              <div>
+                <TextField
+                  id="standard-basic"
+                  label="Confirm Password"
+                  name="cnf_password"
+                  type="password"
+                  variant="standard"
+                  required
+                  onChange={onHandleChange}
+                />
+              </div>
+            )}
+            <Button variant="contained" type="submit">
+              {isMember ? "Login" : "Register"}
+            </Button>
+            {isMember && (
+              <p className="login-register-text">
+                Don't have an account? Please
+                <span
+                  className="login-register-link"
+                  onClick={() => setIsMember(!isMember)}
+                >
+                  Register
+                </span>
+              </p>
+            )}
+            {!isMember && (
+              <p className="login-register-text">
+                Already have an account? Please
+                <span
+                  className="login-register-link"
+                  onClick={() => setIsMember(!isMember)}
+                >
+                  Login
+                </span>
+              </p>
+            )}
+          </form>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default User_Login;

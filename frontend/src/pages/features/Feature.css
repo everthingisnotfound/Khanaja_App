@@ -1,0 +1,28 @@
+/* Style the features section */
+.features {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+    background-color: #fff;
+  }
+  
+  .feature {
+    text-align: center;
+    margin: 0 20px;
+  }
+  
+  .feature img {
+    width: 200px;
+    height:180px;
+    margin-bottom: 20px;
+  }
+  
+  .feature h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .feature p {
+    font-size: 16px;
+  }
+  

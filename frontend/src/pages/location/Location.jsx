@@ -1,18 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import Geosuggest from '@ubilabs/react-geosuggest';
-import '@ubilabs/react-geosuggest/style.css';
-import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import '@ubilabs/react-geosuggest/styles.css';
+import { Hourglass } from 'react-loader-spinner'; // Use the named export for a specific loader type
 
-import './Location.css';
-
-const [isLoading, setIsLoading] = useState(false);
+import './location.css';
 
 const Location = () => {
     const navigate = useNavigate();
     const [selectedLocation, setSelectedLocation] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [googleMapKey, setGoogleMapKey] = useState('YOUR_GOOGLE_MAPS_API_KEY'); // Replace with your Google Maps API Key
+
+    useEffect(() => {
+        // Load the Google Maps JavaScript API
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapKey}`;
+        script.async = true;
+        script.defer = true;
+        script.onload = () => {
+            // The Google Maps API has been loaded
+        };
+        document.head.appendChild(script);
+
+        return () => {
+            // Clean up the script when the component unmounts
+            document.head.removeChild(script);
+        };
+    }, [googleMapKey]);
 
     const handleSuggestSelect = (suggest) => {
         if (suggest && suggest.location) {
@@ -30,26 +46,23 @@ const Location = () => {
         }
     };
 
-
     return (
         <div className="container">
-            <div className="header">Find a Restaurant</div>
+            <div className="header">Find driver</div>
             <div className="form">
                 <div className="form-label">Enter a location:</div>
-                <Geosuggest
-                    onSuggestSelect={handleSuggestSelect}
-                    placeholder="Start typing..."
-                />
+                <Geosuggest onSuggestSelect={handleSuggestSelect} placeholder="Start typing..." />
             </div>
             <div className="map-display">
                 {isLoading ? (
                     <div className="loader">
-                        <Loader type="ThreeDots" color="#4285f4" height={100} width={100} />
+                        <Hourglass color="#4285f4" height={100} width={100} />
                     </div>
                 ) : (
                     <Map center={[selectedLocation?.lat || 0, selectedLocation?.lng || 0]} zoom={15}>
                         <TileLayer
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            url={`https://maps.google.com/maps/vt?lyrs=m&x={x}&y={y}&z={z}`}
+                            attribution='<a href="https://maps.google.com/">Google Maps</a>'
                         />
                         {selectedLocation && (
                             <Marker position={[selectedLocation.lat, selectedLocation.lng]}>
@@ -58,7 +71,9 @@ const Location = () => {
                                         <p>Selected Location</p>
                                         <p>Latitude: {selectedLocation.lat}</p>
                                         <p>Longitude: {selectedLocation.lng}</p>
-                                        <button className="link-button" onClick={openRestaurantDetails}>View Nearby Restaurants</button>
+                                        <button className="link-button" onClick={openRestaurantDetails}>
+                                            View Nearby Restaurants
+                                        </button>
                                     </div>
                                 </Popup>
                             </Marker>
@@ -68,7 +83,6 @@ const Location = () => {
             </div>
         </div>
     );
-
 };
 
 export default Location;

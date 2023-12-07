@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import Geosuggest from '@ubilabs/react-geosuggest';
 import '@ubilabs/react-geosuggest/styles.css';
 import { Hourglass } from 'react-loader-spinner'; // Use the named export for a specific loader type
